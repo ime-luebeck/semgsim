@@ -1,0 +1,5 @@
+^.*\.rds$
+^.*\.RDS$
+^.*\.rda$
+^.*\.Rproj$
+^\.Rproj\.user$
