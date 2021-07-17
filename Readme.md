@@ -35,14 +35,14 @@ always install using
 ``` r
 install.packages("devtools")
 library(devtools)
-install("semgsim2")
+install("semgsim")
 ```
 
 A very simple integration test can then be performed like this:
 
 ``` r
 library(semgsim)
-results <- simulate_muscle("semgsim2/config/integration.r", deterministic=TRUE, num_cores=3)
+results <- simulate_muscle("semgsim/config/integration.r", deterministic=TRUE, num_cores=3)
 ```
 
 That runs a simple demo simulation of a muscle with just three motor

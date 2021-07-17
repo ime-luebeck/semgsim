@@ -23,14 +23,14 @@ To run, first install the package and all required dependencies. I always instal
 ```{r eval=FALSE}
 install.packages("devtools")
 library(devtools)
-install("semgsim2")
+install("semgsim")
 ```
 
 
 A very simple integration test can then be performed like this:
 ```{r eval=FALSE}
 library(semgsim)
-results <- simulate_muscle("semgsim2/config/integration.r", deterministic=TRUE, num_cores=3)
+results <- simulate_muscle("semgsim/config/integration.r", deterministic=TRUE, num_cores=3)
 ```
 That runs a simple demo simulation of a muscle with just three motor units. The call to simulate_muscle should take several minutes up to an hour to complete, but should fail early if something does not work.
 
