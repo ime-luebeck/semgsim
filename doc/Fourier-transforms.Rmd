@@ -1,0 +1,77 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Farina et al. use the
+
+$$ f(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} F(\omega) e^{j\omega t} \mathrm{d}\omega$$
+
+convention for the inverse Fourier transform and the
+
+$$ F(\omega) = \int_{-\infty}^{\infty} f(t) e^{-j\omega t} \mathrm{d}t$$
+
+convention for the forward Fourier transform, so this is the type of Fourier transform we obtain when evaluating equation (23) in their paper.
+
+What do we need to do to convert these expressions to properly scaled time series signals?
+
+Let's find out.
+
+First, set up the problem, sampling settings, signal to be considered: a Gaussian.
+(Notice that a *pure sine* is actually a bad choice for a test signal: the analytical Fourier transform has infinite-height Dirac impulses, which makes everything more complicated. Also see [here](https://de.mathworks.com/matlabcentral/answers/15770-scaling-the-fft-and-the-ifft#answer_276312).)
+
+```{r echo=TRUE}
+library(semgsim)
+Fs <- 1024
+NFFT <- 2048
+sampling <- semgsim:::create_sampling(Fs, NFFT)
+sigma <- 0.05
+# Gaussian signal: Fourier transform is Gaussian again, i.e., finite everywhere
+f <- function(t) exp(-(t-1)^2 / (2 * sigma^2))
+t <- seq(0, NFFT/Fs - 1/Fs, 1/Fs)
+plot(t, f(t))
+```
+
+
+Next, we calculate the analytical Fourier transform using the integration formula.
+```{r echo=TRUE}
+
+calc_TF_point <- function(ang_freq) {
+  real_part <- try(integrate(function(t) Re(f(t) * exp(-1i * ang_freq * t)), -Inf, Inf)$value, silent = TRUE)
+  if (class(real_part) == 'try-error') {
+    real_part <- 0
+  }
+  
+  imaginary_part <- try(integrate(function(t) Im(f(t) * exp(-1i * ang_freq * t)), -Inf, Inf)$value, silent = TRUE)
+  if (class(imaginary_part) == 'try-error') {
+    imaginary_part <- 0
+  }  
+  
+  return(real_part + 1i * imaginary_part)
+}
+calc_TF <- Vectorize(calc_TF_point, 'ang_freq')
+
+# We only need to calculate half of the FFT values, because for a real signal, the Fourier spectrum is Hermitian
+fftvals_half <- calc_TF(sampling$freqs_to_calc * 2 * pi)
+
+# Obtain the remaining samples by mirroring
+fftvals <- semgsim:::mirror_hermitian_fft(fftvals_half, sampling)
+stopifnot(semgsim:::is_fft_of_real_signal(fftvals, sampling))
+
+# Plot the Fourier spectrum
+plot(sampling$fft_freqs, abs(fftvals))
+```
+
+There are definite errors in the spectrum... are those numerical integration artifacts?
+The exact spectrum should be a Gaussian again.
+Ignoring these errors for now.
+
+Finally, use the inverse FFT (as we do in semgsim) to get the time signals.
+```{r echo=TRUE}
+sig_reconstruction <- fft(fftvals, inverse=TRUE) * sampling$Fs / NFFT
+plot(Re(sig_reconstruction))
+```
+
+I am quite sure this is so noisy because of the artifacts in the spectrum, as discussed above.
+I am currently mostly concerning with getting the _scaling_ of all the transforms right, so I don't care so much.
+Apparently, **we need to scale with a factor $F_s / \mathrm{NFFT}$.**

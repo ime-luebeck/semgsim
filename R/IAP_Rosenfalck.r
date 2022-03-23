@@ -76,13 +76,16 @@ psi_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
     res
 }
 
-##' Implementation of the unitary Fourier transform of \code{psi.Rosenfalck}
+##' Implementation of the Fourier transform of \code{psi.Rosenfalck}
 ##'
 ##' Implements a Fourier Transform of Rosenfalck's psi function, scaled to take
 ##' its input variable in SI unit m, instead of in mm.
+##'
+##' See docs/Rosenfalck.md for a derivation.
 ##'
 ##' @param fz Ordinary frequency [Hz], scalar or vector.
 ##' @return Scalar or vector, depending on the input size.
 ##' @export
 psi_Rosenfalck_transformed <- function(fz, A = 96 * 1e-3, B = -90 * 1e-3)
-    750i * 1e6 * A * pi * fz / (500i + pi * fz)^4
+    -375000i * sqrt(2*pi) * A * fz / (pi * fz - 500i)^4
+

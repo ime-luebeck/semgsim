@@ -360,9 +360,7 @@ calc_shifted_emg_response <- function(firing_response_fft, time_shift,
                        sampling = sampling,
                        time_shift = time_shift)
 
-    firing_response_cmplx <- fft(firing_response_fft_shifted *
-                                   sampling$Fs / NFFT,
-                                 inverse = TRUE)
+    firing_response_cmplx <- fft(firing_response_fft_shifted, inverse = TRUE) * sampling$Fs / NFFT
         
     stopifnot(length(firing_response_cmplx) == NFFT)
     

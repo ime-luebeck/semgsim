@@ -115,7 +115,7 @@ append_fft <- function(obj) {
     NFFT <- obj$nSamples
     
     ## Calculate the sample time
-    obj$fft.timestep <- obj$max.position / NFFT
+    obj$fft.timestep <- (obj$max.position - obj$min.position) / NFFT
 
     ## Calculate the sampling frequency
     obj$fft.fs <- 1 / obj$fft.timestep
@@ -169,9 +169,9 @@ append_fft <- function(obj) {
 #' @examples
 #' t <- seq(0.1, 1, 0.1)
 #' y <- sin(2*pi*t)
-#' fft_shifted <- semg.simulatr:::time_shift_fft(
+#' fft_shifted <- semgsim:::time_shift_fft(
 #'     fft_vals = fft(y) / length(y),
-#'     sampling = semg.simulatr:::create_sampling(Fs = 10, NFFT = 10),
+#'     sampling = semgsim:::create_sampling(Fs = 10, NFFT = 10),
 #'     time_shift = 0.2)
 #' dev.new()
 #' plot(t,y)
@@ -208,7 +208,7 @@ time_shift_fft <- function(fft_vals, sampling, time_shift) {
 #' 
 mirror_hermitian_fft <- function(fft_vals, sampling) {
 
-    ## Exploit hermitian symmetry due to realness of the resulting signal.
+    ## Exploit Hermitian symmetry due to realness of the resulting signal.
     N <- length(fft_vals)
     
     if (is.even(sampling$NFFT))
@@ -224,13 +224,13 @@ mirror_hermitian_fft <- function(fft_vals, sampling) {
 
 
 is_fft_of_real_signal <- function(fft_vals, sampling, abstol = 1e-14) {
-
+    # The FFT of a real signal should be conjugate symmetric (Hermitian),
+    # i.e., Re{X(-k)} = Re{X(k)} and Im{X(-k)} = -Im{X(k)}
     pos_freqs <- which(sampling$fft_freqs > 0)
 
     if (is.even(sampling$NFFT)) {
 
-        if (abs(Im(fft_vals[1])) > abstol ||
-            abs(Im(fft_vals[sampling$NFFT/2 + 1])) > abstol)
+        if (abs(Im(fft_vals[1])) > abstol)
             return(FALSE)
         
         pos_freqs <- which(sampling$fft_freqs > 0)

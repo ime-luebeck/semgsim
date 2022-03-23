@@ -366,10 +366,12 @@ plot_firing_responses <- function(sim_result, MUs = 1:3, nrow = 1, dir = "h",
                                   electrode_confs = NA,
                                   electrodes = NA, print_plot = TRUE,
                                   bw = FALSE, facet_labels = TRUE, for_latex = FALSE) {
-    ## TODO Implement free switching of variables between colour and facet dims
+    ## TODO Implement free switching of variables between color and facet dims
     
     NFFT <- sim_result$sampling$NFFT
-    times <- seq(0, (NFFT - 1) / sim_result$Fs, 1 / sim_result$Fs)
+    Fs <- sim_results$Fs
+    stopifnot(NFFT == length(sim_result$MU_firing_responses_fftvals[[1]]))
+    times <- seq(0, (NFFT - 1) / Fs, 1 / Fs)
 
     if (!is.numeric(electrodes))
         electrodes <- unique(sim_result$electrodes$electrode)
@@ -385,7 +387,7 @@ plot_firing_responses <- function(sim_result, MUs = 1:3, nrow = 1, dir = "h",
                  electrode = electrode[[1]] %>% rep(NFFT),
                  time = times,
                  potential =
-                     firing_response_fftvals[[1]] %>% fft(inverse = TRUE) %>% Re))
+                     (firing_response_fftvals[[1]] %>% fft(inverse = TRUE) %>% Re) * Fs / NFFT))
     }
 
     responses <- plyr::ddply(.data = sim_result$MU_firing_responses_fftvals %>%
@@ -506,7 +508,8 @@ plot_impulse_responses <- function(sim_result, MUs = 1:3, nrow = 1, dir = "h",
                                    scales = "free_y", print_plot = TRUE) {
 
     NFFT <- sim_result$sampling$NFFT
-    times <- seq(0, (NFFT - 1) / sim_result$Fs, 1 / sim_result$Fs)
+    Fs - sim_result$Fs
+    times <- seq(0, (NFFT - 1) / Fs, 1 / Fs)
 
     transformer <- function(df_row) {
         fftvals <- df_row$TF[[1]] %>% mirror_hermitian_fft(sim_result$sampling)
@@ -515,7 +518,7 @@ plot_impulse_responses <- function(sim_result, MUs = 1:3, nrow = 1, dir = "h",
                         MU = MU[[1]] %>% rep(NFFT),
                         electrode = electrode[[1]] %>% rep(NFFT),
                         time = times,
-                        impulse = fftvals %>% fft(inverse = TRUE) %>% Re))
+                        impulse = (fftvals %>% fft(inverse = TRUE) %>% Re) * Fs / NFFT))
     }
 
     impulses <- plyr::ddply(.data =
