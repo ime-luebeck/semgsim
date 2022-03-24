@@ -110,15 +110,15 @@ generate_MUs_for_muscle <- function(muscle) {
             MU$rec_thresh <- b * i * exp(a2 * i) / muscle$num_MUs
         
         ## Size principle parameters are monotonously related to the recruitment threshold
-		## size_factor is between 0 and 1 and scales properties between the smallest and
-		## the largest MU in the muscle
+    		## size_factor is between 0 and 1 and scales properties between the smallest and
+    		## the largest MU in the muscle
         size_factor <- (MU$rec_thresh - rec_start) / (rec_stop - rec_start)
         MU <- update_MU_size_params(MU, muscle$MU_size_params, size_factor)
-		MU$num_fibers <- round(MU$peak_force / MU$peak_fiber_force)
-		## Nominal number of fibers to be expected judging from MU size, exluding
-		## stochastic variations (this will be required later on if the MU needs to be resized
-		## because its size violates the muscle boundaries).
-		MU$num_fibers_nom <- MU$peak_force / MU$peak_fiber_force_nom
+    		MU$num_fibers <- round(MU$peak_force / MU$peak_fiber_force)
+    		## Nominal number of fibers to be expected judging from MU size, exluding
+    		## stochastic variations (this will be required later on if the MU needs to be resized
+    		## because its size violates the muscle boundaries).
+    		MU$num_fibers_nom <- MU$peak_force / MU$peak_fiber_force_nom
 		
         ## All other parameters are assumed to be randomly distributed following
         ## a Weibull distribution

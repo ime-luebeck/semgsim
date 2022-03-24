@@ -369,8 +369,8 @@ plot_firing_responses <- function(sim_result, MUs = 1:3, nrow = 1, dir = "h",
     ## TODO Implement free switching of variables between color and facet dims
     
     NFFT <- sim_result$sampling$NFFT
-    Fs <- sim_results$Fs
-    stopifnot(NFFT == length(sim_result$MU_firing_responses_fftvals[[1]]))
+    Fs <- sim_result$Fs
+    stopifnot(NFFT == length(sim_result$MU_firing_responses_fftvals$firing_response_fftvals[[1]]))
     times <- seq(0, (NFFT - 1) / Fs, 1 / Fs)
 
     if (!is.numeric(electrodes))

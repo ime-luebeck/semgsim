@@ -108,7 +108,7 @@ calculate_TF_Far_Mer_MU <- function(MU_obj, electrode_obj, freqs,
 
     ## TODO optimize via implementing in C(++)?
     
-    calculate_TF_Far_Mer <- Vectorize(calculate_TF_point_Far_Mer, 'freq')
+    calculate_TF_Far_Mer <- Vectorize(calculate_TF_point_Far_Mer, 'ang_freq')
 
     #print(".")
 
@@ -119,7 +119,7 @@ calculate_TF_Far_Mer_MU <- function(MU_obj, electrode_obj, freqs,
                             vol_conductor = vol_conductor,
                             B_sampling = B_sampling)
         
-        calculate_TF_Far_Mer(freq = freqs / MU_obj$cv * 2 * pi,
+        calculate_TF_Far_Mer(ang_freq = freqs / MU_obj$cv * 2 * pi,
                              electrode = electrode_obj,
                              fiber = fiber,
                              vol_conductor = vol_conductor,
@@ -396,10 +396,10 @@ calc_extrapolation_slope <- function(Bvals_abs_log, freqs_log, side) {
 #' Note that this implementation assumes an even, real electrode transfer
 #' function!
 #' 
-calculate_TF_point_Far_Mer <- function(freq, electrode, fiber,
+calculate_TF_point_Far_Mer <- function(ang_freq, electrode, fiber,
                                        vol_conductor, Bfun) {
 
-    stopifnot(is.nice.scalar(freq),
+    stopifnot(is.nice.scalar(ang_freq),
               is.function(Bfun))
 
     theta <- fiber$rotation[2]
@@ -414,8 +414,8 @@ calculate_TF_point_Far_Mer <- function(freq, electrode, fiber,
     
     kernel <- function(kzs) {
 
-        k_eps <- kzs + freq
-        k_beta <- kzs - freq
+        k_eps <- kzs + ang_freq
+        k_beta <- kzs - ang_freq
 
         C <- 2 * exp(-1i * k_eps * L1 / 2) * sin(k_eps * L1 / 2) / k_eps -
             2 * exp(1i * k_beta * L2 / 2) * sin(k_beta * L2 / 2) / k_beta
@@ -425,7 +425,7 @@ calculate_TF_point_Far_Mer <- function(freq, electrode, fiber,
         val
     }
 
-    integrate_kernel(kernel, freq)
+    integrate_kernel(kernel, ang_freq)
 }
 
 

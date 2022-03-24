@@ -87,5 +87,5 @@ psi_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
 ##' @return Scalar or vector, depending on the input size.
 ##' @export
 psi_Rosenfalck_transformed <- function(fz, A = 96 * 1e-3, B = -90 * 1e-3)
-    -375000i * sqrt(2*pi) * A * fz / (pi * fz - 500i)^4
+    -375000000i * sqrt(2*pi) * A * fz / (pi * fz - 500i)^4
 

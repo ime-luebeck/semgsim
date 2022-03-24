@@ -27,21 +27,8 @@ $$
 = -A e^{1000z} \cdot [3 z^2 10^9 + z^3 10^{12}] \cdot H(-z)
 $$
 
-The Wolfram Alpha query `fourier transform of - A e^(t) * (3*t^2 + t^3) * Heaviside(-t)` yields
+The Wolfram Alpha query `fourier transform of - A e^(1000t) * (3*t^2*10^9 + t^3*10^12) * Heaviside(-t)` yields
 $$
-\mathcal{F}\{\psi(z [mm])\} = \frac{-3i \sqrt{2/\pi} A \omega}{(\omega - i)^4}
+\mathcal{F}\{\psi(z [m])\}(f) = \frac{-375.000.000i \sqrt{2\pi} A f}{(\pi f- 500i)^4}
 $$
-
-Knowing that
-$$
-\mathcal{F}\{f(\alpha t)\}(\omega) = \frac{1}{\lvert \alpha \rvert} \mathcal{F}\{f(t)\}(\omega/\alpha),
-$$
-we obtain
-$$
-\mathcal{F}\{\psi(z [m])\}(\omega) = \frac{1}{1000}\mathcal{F}\{\psi(z [mm])\}(\omega/1000)=  \\
-= \frac{-3i \cdot 10^{-3} \sqrt{2/\pi} A \omega \cdot 10^{-3}}{(\omega \cdot 10^{-3}- i)^4} \\
-= \frac{-3i \cdot 10^{-3} \sqrt{2/\pi} A \omega \cdot 10^{-3}}{(\pi f- 500i)^4} \cdot 500^4 \\
-= \frac{-6i \cdot 10^{-6} \sqrt{2\pi} A f \cdot 500^4}{(\pi f- 500i)^4} \\
-= \frac{-375000i \sqrt{2\pi} A f}{(\pi f- 500i)^4}
-$$
-which is what is called $\Psi$ in the Farina paper.
+which is the quantity called $\Psi$ in the Farina paper.
