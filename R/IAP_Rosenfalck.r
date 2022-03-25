@@ -76,7 +76,7 @@ psi_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
     res
 }
 
-##' Implementation of the Fourier transform of \code{psi.Rosenfalck}
+##' Implementation of the (non-unitary!) Fourier transform of \code{psi.Rosenfalck}
 ##'
 ##' Implements a Fourier Transform of Rosenfalck's psi function, scaled to take
 ##' its input variable in SI unit m.

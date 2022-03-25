@@ -32,9 +32,6 @@ $$
 \mathcal{F}\{\psi(z [m])\}(f) = \frac{6 \cdot 10^9 A j \omega}{(j\omega- 1000)^4} \\
 = \frac{12j \cdot 10^9 A \pi f}{(2 j \pi f- 1000)^4}
 $$
-$$
-\mathcal{F}\{\psi(z [m])\}(f) = \frac{-375.000.000i \sqrt{2\pi} A f}{(\pi f- 500i)^4}
-$$
 which is the quantity called $\Psi$ in the Farina paper.
 
 Let's try to derive the same thing analytically.
@@ -52,4 +49,4 @@ $$
 
 ...
 
-[^1]: Notice that that query is *not* the same as simply calling `fourier transform of (- A e^(1000t) * (3*t^2*10^9 + t^3*10^12) * Heaviside(-t)`, because that will use another type of Fourier transform! (Probably a unitary one?)
+[^1]: Notice that that query is *not* the same as simply calling `fourier transform of (- A e^(1000t) * (3*t^2*10^9 + t^3*10^12) * Heaviside(-t)`, because that will use another type of Fourier transform! (Probably a unitary one?) The difference should be a factor of $\sqrt{2 \pi}$.
