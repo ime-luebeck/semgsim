@@ -3,20 +3,20 @@
 #' An implementation of a variant of Rosenfalck's model of the Intracellular
 #' Action Potential (IAP) wave shape.  The model is simply
 #'
-#'    Vm(z[mm]) = Az^3 exp(-z) + B, if z > 0 and
-#'    Vm(z[mm]) = B, if z <= 0.
+#'    Vm(z[m]) = Az^3 exp(-z) + B, if z > 0 and
+#'    Vm(z[m]) = B, if z <= 0.
 #'
 #' Note that the front of the IAP is towards z = 0, whereas the tail of the wave
-#' is around z = 15. The wave is running in negative z direction.
+#' is around z = 0,015m. The wave is running in negative z direction.
 #'
 #' @param z The spatial variable. Can be a scalar or a vector. Should be in
-#'   \code{mm} when employing the default parameters for \code{A} and \code{B}.
+#'   \code{m}.
 #' @param A Model parameter. Must be a scalar value in [V/mm^3]. Default value
 #'   is 96 mv/mm^3.
 #' @param B Model parameter. Must be a scalar value in SI units. Default value
 #'   is -90mV.
-#' @return A numerical vector containing the value(s) of Rosenfalcks function at
-#'   position(s) z.
+#' @return A numerical vector containing the value(s) of Rosenfalcks function 
+#'   (in [V]) at position(s) z [m]
 #' @export
 IAP_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
     
@@ -31,7 +31,7 @@ IAP_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
 
     ## This is the actual implementation of the formula.
     res <- vector("numeric", length(z))
-    res[z_pos_mask] <- A * z_pos^3 * exp(-z_pos) + B
+    res[z_pos_mask] <- A * (1000*z_pos)^3 * exp(-1000*z_pos) + B
     res[!z_pos_mask] <- B
 
     ## Return the result.
@@ -53,13 +53,13 @@ IAP_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
 #' is around z = -15. It is running in positive z direction.
 #'
 #' @param z The spatial variable. Can be a scalar or a vector. Should be in
-#'   \code{mm} when employing the default parameters for \code{A} and \code{B}.
+#'   \code{m}.
 #' @param A Model parameter. Must be a scalar value in [V/mm^3]. Default value
 #'   is 96 mv/mm^3.
 #' @param B Model parameter. Must be a scalar value in SI units. Default value
 #'   is -90mV.
 #' @return A numerical vector containing the value(s) of Rosenfalcks psi
-#'   function at position(s) z.
+#'   function (in [V]) at position(s) z [m].
 #' @export
 psi_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
 
@@ -70,7 +70,7 @@ psi_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
     ## Note that at z = 0 (where a Dirac delta would occur), 0 is returned.
     res <- vector("numeric", length(z))
     res[z_pos_mask] <- 0
-    res[!z_pos_mask] <- -(z_neg + 3) * A * z_neg^2 * exp(z_neg)
+    res[!z_pos_mask] <- -(z_neg * 1e12 + 3e9) * A * z_neg^2 * exp(1000*z_neg)
 
     ## Return the result.
     res
@@ -79,7 +79,7 @@ psi_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
 ##' Implementation of the Fourier transform of \code{psi.Rosenfalck}
 ##'
 ##' Implements a Fourier Transform of Rosenfalck's psi function, scaled to take
-##' its input variable in SI unit m, instead of in mm.
+##' its input variable in SI unit m.
 ##'
 ##' See docs/Rosenfalck.md for a derivation.
 ##'
@@ -87,5 +87,5 @@ psi_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
 ##' @return Scalar or vector, depending on the input size.
 ##' @export
 psi_Rosenfalck_transformed <- function(fz, A = 96 * 1e-3, B = -90 * 1e-3)
-    -375000000i * sqrt(2*pi) * A * fz / (pi * fz - 500i)^4
+    12i * 1e9 * A * pi * fz / (2i * pi * fz - 1000)^4
 

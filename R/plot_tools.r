@@ -370,7 +370,8 @@ plot_firing_responses <- function(sim_result, MUs = 1:3, nrow = 1, dir = "h",
     
     NFFT <- sim_result$sampling$NFFT
     Fs <- sim_result$Fs
-    stopifnot(NFFT == length(sim_result$MU_firing_responses_fftvals$firing_response_fftvals[[1]]))
+    example_fftvals <- sim_result$MU_firing_responses_fftvals$firing_response_fftvals[[1]]
+    stopifnot(NFFT == length(example_fftvals))
     times <- seq(0, (NFFT - 1) / Fs, 1 / Fs)
 
     if (!is.numeric(electrodes))
@@ -390,6 +391,13 @@ plot_firing_responses <- function(sim_result, MUs = 1:3, nrow = 1, dir = "h",
                      (firing_response_fftvals[[1]] %>% fft(inverse = TRUE) %>% Re) * Fs / NFFT))
     }
 
+    # exemplarily verify Parseval's identity: power should stay the same before / after IFFT
+    # https://de.mathworks.com/matlabcentral/answers/15770-scaling-the-fft-and-the-ifft#answer_276312
+    example_fourier_energy <- sum(abs(example_fftvals)^2) * Fs / NFFT
+    example_ifft <- Re(fft(example_fftvals, inverse=TRUE)) * Fs / NFFT
+    example_time_energy <- sum(abs(example_ifft)^2 / Fs)
+    stopifnot(abs((example_fourier_energy - example_time_energy) / example_fourier_energy) < 1e-6)
+    
     responses <- plyr::ddply(.data = sim_result$MU_firing_responses_fftvals %>%
                               dplyr::filter(MU %in% MUs &
                                             electrode %in% electrodes &

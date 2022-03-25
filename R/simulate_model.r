@@ -360,6 +360,11 @@ calc_shifted_emg_response <- function(firing_response_fft, time_shift,
                        sampling = sampling,
                        time_shift = time_shift)
 
+    ## Time shifting should not change signal power (by a lot)
+    energy_before_shift = sum(abs(firing_response_fft)^2) * sampling$Fs / NFFT
+    energy_after_shift = sum(abs(firing_response_fft_shifted)^2) * sampling$Fs / NFFT
+    stopifnot(abs((energy_before_shift - energy_after_shift) / energy_after_shift) < 1e-6)  
+    
     firing_response_cmplx <- fft(firing_response_fft_shifted, inverse = TRUE) * sampling$Fs / NFFT
         
     stopifnot(length(firing_response_cmplx) == NFFT)
@@ -373,6 +378,11 @@ calc_shifted_emg_response <- function(firing_response_fft, time_shift,
         warning(paste("Relative error greater than expected, was", rel_err_max, "."))
     
     firing_response <- Re(firing_response_cmplx)
+    
+    # verify Parseval's identity: power should stay the same before / after IFFT
+    # https://de.mathworks.com/matlabcentral/answers/15770-scaling-the-fft-and-the-ifft#answer_276312
+    time_energy <- sum(abs(firing_response)^2 / sampling$Fs)
+    stopifnot(abs((energy_after_shift - time_energy) / energy_after_shift) < 1e-6)    
     
     firing_response
 }

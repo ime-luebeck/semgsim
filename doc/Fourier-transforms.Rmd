@@ -11,7 +11,8 @@ convention for the inverse Fourier transform and the
 
 $$ F(\omega) = \int_{-\infty}^{\infty} f(t) e^{-j\omega t} \mathrm{d}t$$
 
-convention for the forward Fourier transform, so this is the type of Fourier transform we obtain when evaluating equation (23) in their paper.
+convention for the forward Fourier transform, corresponding to the "non-unitary formulation of the Fourier-transform in angular frequency" ([wiki](https://en.wikipedia.org/wiki/Fourier_transform#Other_conventions)).
+So this is the type of Fourier transform we obtain when evaluating equation (23) in their paper.
 
 What do we need to do to convert these expressions to properly scaled time series signals?
 
@@ -60,10 +61,13 @@ stopifnot(semgsim:::is_fft_of_real_signal(fftvals, sampling))
 
 # Plot the Fourier spectrum
 plot(sampling$fft_freqs, abs(fftvals))
+
+# Compare with the FFT-calculated spectrum
+plot(sampling$fft_freqs, abs(fft(f(t)) / sampling$Fs))
 ```
 
-There are definite errors in the spectrum... are those numerical integration artifacts?
-The exact spectrum should be a Gaussian again.
+There are definite errors in the spectrum... are those numerical integration artifacts? I guess so.
+The exact spectrum should be a Gaussian again, cf. the results of the FFT.
 Ignoring these errors for now.
 
 Finally, use the inverse FFT (as we do in semgsim) to get the time signals.
