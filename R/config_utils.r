@@ -1,5 +1,13 @@
-create_rect_muscle <- function(width, thickness) {
+create_muscle <- function(identifier) {
+    muscle <- list()
+    class(muscle) <- "muscle"
+    muscle$identifier <- identifier
 
+    muscle
+}
+
+
+create_rect_muscle <- function(width, thickness) {
     muscle <- list()
     class(muscle) <- "muscle"
     muscle$shape <- "rect"

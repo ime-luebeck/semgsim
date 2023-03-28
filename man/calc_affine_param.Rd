@@ -19,7 +19,7 @@ calc_affine_param(min_val, max_val, ratio)
 }
 \description{
 Calculates
-`var2 = var2min + (var1i - var1min) / (var1max - var1min) * (var2max - var2min)`
-where the quotient `(var1i - var1min) / (var1max - var1min)` corresponds to
-function parameter `ratio`.
+\code{var2 = var2min + (var1i - var1min) / (var1max - var1min) * (var2max - var2min)}
+where the quotient \code{(var1i - var1min) / (var1max - var1min)} corresponds to
+function parameter \code{ratio}.
 }

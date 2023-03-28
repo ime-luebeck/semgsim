@@ -27,8 +27,8 @@ scale_amp * func(x) instead of func(x).}
 }
 \value{
 An object of class "fft" that has two properties: $fft, which
-  contains the actual result of the fft, and $vars, which contains a variety
-  of parameters involved with the fft, such as the sampled frequencies, etc.
+contains the actual result of the fft, and $vars, which contains a variety
+of parameters involved with the fft, such as the sampled frequencies, etc.
 }
 \description{
 Provides a utility wrapper for the builtin FFT function that is applied

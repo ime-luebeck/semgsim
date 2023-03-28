@@ -9,13 +9,13 @@ create_rate_function_creator(params)
 }
 \arguments{
 \item{params}{A list of values that parameterize the rate coding
-characteristics of a muscle. Must contain parameters "A" to "E" or "A" to "G" 
+characteristics of a muscle. Must contain parameters "A" to "E" or "A" to "G"
 if params$alternative_rate_coding is TRUE.}
 }
 \value{
 A function that takes the recruitment threshold of a MU and returns a
-  function that gives that MU's firing rate in dependence of the current
-  muscle work load.
+function that gives that MU's firing rate in dependence of the current
+muscle work load.
 
 Model of De Luca and Hostage (2010)
 New model proposed in our frontiers in physiology modelling paper

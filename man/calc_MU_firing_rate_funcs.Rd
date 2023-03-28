@@ -13,7 +13,7 @@ calc_MU_firing_rate_funcs(muscles, MUs)
 }
 \value{
 A data frame containing a column $rate.function that gives the
-  function described above for each MU.
+function described above for each MU.
 }
 \description{
 For each MU calculate a function that gives its firing rate in dependence of

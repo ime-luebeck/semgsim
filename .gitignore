@@ -1,10 +1,12 @@
 # R-Related
+/.Rproj.user/
 .Rhistory
 .Rprofile
 .RData
 *.Rproj
 *.rda
 *.rds
+/simout/
 
 ## Emacs-related
 *~

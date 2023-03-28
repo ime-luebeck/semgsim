@@ -12,7 +12,7 @@ sum_MU_contribs <- function(MU_firing_contribs, time, sampling) {
 		## FORCE
 		force_dfs[[j]] <- data.frame(muscle = muscle_id,
 							   time = time,
-							   force = rep(0, length(t)))
+							   force = rep(0, length(time)))
         ## loop over MUs and add their respective force contributions
 		for (row_id in as.numeric(rownames(muscle_reduced_df))) {
 				force_dfs[[j]]$force <- force_dfs[[j]]$force +
@@ -26,7 +26,7 @@ sum_MU_contribs <- function(MU_firing_contribs, time, sampling) {
             emg_dfs[[i]] <- data.frame(muscle = muscle_id,
                                    electrode = electrode_id,
                                    time = time,
-                                   potential = rep(0, length(t)))
+                                   potential = rep(0, length(time)))
             ## Now loop over MUs and add their respective contributions
             for (row_id in as.numeric(rownames(muscle_reduced_df)))
 				emg_dfs[[i]]$potential <- emg_dfs[[i]]$potential +

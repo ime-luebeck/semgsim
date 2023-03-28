@@ -10,7 +10,7 @@ psi_Rosenfalck(z, A = 96 * 0.001, B = -90 * 0.001)
 }
 \arguments{
 \item{z}{The spatial variable. Can be a scalar or a vector. Should be in
-\code{mm} when employing the default parameters for \code{A} and \code{B}.}
+\code{m}.}
 
 \item{A}{Model parameter. Must be a scalar value in [V/mm^3]. Default value
 is 96 mv/mm^3.}
@@ -20,13 +20,13 @@ is -90mV.}
 }
 \value{
 A numerical vector containing the value(s) of Rosenfalcks psi
-  function at position(s) z.
+function (in [V]) at position(s) z [m].
 }
 \description{
 psi(z[mm]) = (Vm(-z))'
-          = | -(z+3) A z^2 exp(z)                                if z < 0
-            | 0                                                  if z > 0
-            | -(z+3) A z^2 exp(z) + A z^3 exp(z) delta(z), if z = 0.
+= | -(z+3) A z^2 exp(z)                                if z < 0
+| 0                                                  if z > 0
+| -(z+3) A z^2 exp(z) + A z^3 exp(z) delta(z), if z = 0.
 }
 \details{
 Here, we implement psi(0) = 0.

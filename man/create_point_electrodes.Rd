@@ -14,8 +14,8 @@ given as (x, z).}
 }
 \value{
 A \code{data.frame} containing one row for each electrode. Columns
-  are 'electrode' for the id of the electrode and 'electrode.obj' containing
-  the actual object of type 'electrode.point'.
+are 'electrode' for the id of the electrode and 'electrode.obj' containing
+the actual object of type 'electrode.point'.
 }
 \description{
 Take an arbitrary number of positions on the 2D skin plane and return a data

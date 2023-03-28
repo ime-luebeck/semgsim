@@ -4,7 +4,7 @@
 \alias{summarize_muscles}
 \title{Summarize key properties of generated muscles to command line}
 \usage{
-summarize_muscles(sim_result)
+summarize_muscles(sim_result, muscles = NA)
 }
 \description{
 Summarize key properties of generated muscles to command line

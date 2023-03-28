@@ -3,20 +3,20 @@
 #' An implementation of a variant of Rosenfalck's model of the Intracellular
 #' Action Potential (IAP) wave shape.  The model is simply
 #'
-#'    Vm(z[m]) = Az^3 exp(-z) + B, if z > 0 and
-#'    Vm(z[m]) = B, if z <= 0.
+#'    Vm(z\[m\]) = Az^3 exp(-z) + B, if z > 0 and
+#'    Vm(z\[m\]) = B, if z <= 0.
 #'
 #' Note that the front of the IAP is towards z = 0, whereas the tail of the wave
 #' is around z = 0,015m. The wave is running in negative z direction.
 #'
 #' @param z The spatial variable. Can be a scalar or a vector. Should be in
 #'   \code{m}.
-#' @param A Model parameter. Must be a scalar value in [V/mm^3]. Default value
+#' @param A Model parameter. Must be a scalar value in \[V/mm^3\]. Default value
 #'   is 96 mv/mm^3.
 #' @param B Model parameter. Must be a scalar value in SI units. Default value
 #'   is -90mV.
 #' @return A numerical vector containing the value(s) of Rosenfalcks function 
-#'   (in [V]) at position(s) z [m]
+#'   (in \[V\]) at position(s) z \[m\]
 #' @export
 IAP_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
     
@@ -43,7 +43,7 @@ IAP_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
 #' Intracellular Action Potential (IAP) wave shape, evaluated in the negative
 #' z direction. This quantity is called psi.
 #'
-#'    psi(z[mm]) = (Vm(-z))'
+#'    psi(z\[mm\]) = (Vm(-z))'
 #'           = | -(z+3) A z^2 exp(z)                                if z < 0
 #'             | 0                                                  if z > 0
 #'             | -(z+3) A z^2 exp(z) + A z^3 exp(z) delta(z), if z = 0.
@@ -54,12 +54,12 @@ IAP_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
 #'
 #' @param z The spatial variable. Can be a scalar or a vector. Should be in
 #'   \code{m}.
-#' @param A Model parameter. Must be a scalar value in [V/mm^3]. Default value
+#' @param A Model parameter. Must be a scalar value in \[V/mm^3\]. Default value
 #'   is 96 mv/mm^3.
 #' @param B Model parameter. Must be a scalar value in SI units. Default value
 #'   is -90mV.
 #' @return A numerical vector containing the value(s) of Rosenfalcks psi
-#'   function (in [V]) at position(s) z [m].
+#'   function (in \[V\]) at position(s) z \[m\].
 #' @export
 psi_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
 
@@ -83,7 +83,7 @@ psi_Rosenfalck <- function(z, A = 96 * 1e-3, B = -90 * 1e-3) {
 ##'
 ##' See docs/Rosenfalck.md for a derivation.
 ##'
-##' @param fz Ordinary frequency [Hz], scalar or vector.
+##' @param fz Ordinary frequency \[Hz\], scalar or vector.
 ##' @return Scalar or vector, depending on the input size.
 ##' @export
 psi_Rosenfalck_transformed <- function(fz, A = 96 * 1e-3, B = -90 * 1e-3)

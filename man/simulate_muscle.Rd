@@ -2,30 +2,30 @@
 % Please edit documentation in R/simulate.r
 \name{simulate_muscle}
 \alias{simulate_muscle}
-\title{Simulate a surface electromyogram and force resulting from muscle acticity}
+\title{Simulate a surface electromyogram and force resulting from muscle activity}
 \usage{
 simulate_muscle(
   config_file,
   deterministic = FALSE,
   out_file = NULL,
-  num_cores = 1
+  num_cores = future::availableCores(omit = 1)
 )
 }
 \arguments{
-\item{config_file}{Specifies the simulation config file to be read. Must
-specify a number of physiological parameters. See section Details for more
-information.}
+\item{config_file}{Specifies the simulation config file to be read.
+Must specify a number of physiological parameters including the
+force function for each muscle. See section Details for more information.}
 
-\item{out_file}{Optional. If given, specifies a file to save the simulation
-\code{environment()}. Results can be loaded via \code{readRDS(out_file)}
-afterwards.}
+\item{deterministic}{Option sets seed for reproducible random
+numbers.}
 
-\item{num_cores}{Number of cores to use for various parts of the simulatino
-that can be performed in parallel. Optional, default=1.}
+\item{out_file}{Optional. If given, specifies a file to save
+the simulation \code{environment()}. Results can be loaded via
+\code{readRDS(out_file)} afterwards.}
 
-\item{MoreArgs}{A list of parameter name - value pairs. Can be used to
-provide necessary model parameters that are missing in the
-\code{config_file}.}
+\item{num_cores}{Optional. Number of cores to use for various
+parts of the simulation that can be performed in parallel.
+Default = all available cores minus 1.}
 }
 \description{
 Given a virtual experimental set-up, simulate the sEMG and force data
@@ -45,6 +45,10 @@ doi: 10.3389/fphys.2019.00176.
 }
 \note{
 Currently, effects resulting from fatigue are not implemented.
+}
+\examples{
+model <- simulate_muscle("config/abdominals.r", deterministic=TRUE, num_cores=3, out_file = "simout/abdominals.RDS")
+model <- simulate_muscle("config/integration.r", deterministic = TRUE) 
 }
 \author{
 Eike Petersen

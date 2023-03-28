@@ -38,8 +38,8 @@ Otherwise, the parallel package is used for multi-process computations.}
 }
 \value{
 A data.frame containing the values of the transfer functions at
-  frequencies \code{.freqs} in column 'TF', represented as vectors of complex
-  values.
+frequencies \code{.freqs} in column 'TF', represented as vectors of complex
+values.
 }
 \description{
 Compute the transfer functions between MUs and electrodes according to the
@@ -51,4 +51,8 @@ of Motor Units, sampled at a given set of frequencies. Note that the
 potentially differing conduction velocities of the MUs will be taken into
 account here, s.t. they do neither need to be taken care of in the
 specification of .freqs, nor later on in the processing stage.
+}
+\note{
+The config file may "link" the current function to
+\code{calc_MU_electrode_time_TFs()} which is called from \code{\link[=calculate_semg_TFs]{calculate_semg_TFs()}}.
 }

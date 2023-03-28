@@ -15,7 +15,7 @@ the origin, in radians.}
 }
 \value{
 A two-component vector that contains the rotated x, or a matrix
-  containing the rotated columns of x.
+containing the rotated columns of x.
 }
 \description{
 Rotates a two-dimensional vector about the origin.

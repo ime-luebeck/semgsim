@@ -17,7 +17,7 @@ chosen. Usually constructed by the function create.sampling.}
 }
 \value{
 FFT values of the same frequencies as in fft_vals, but s.t. they
-  produce a time-shifted signal when inverse transformed.
+produce a time-shifted signal when inverse transformed.
 }
 \description{
 Takes already calculated values of an fft and applies the relation between a
@@ -26,18 +26,18 @@ frequency domain to obtain a shifted time signal.
 }
 \note{
 This function will work but most likely produce undesired results when
-  applied to signals of even length that have a non-zero coefficient at Fs/2.
-  This coefficient is required to have a purely real coefficient for the
-  inverse transformed signal to be purely real. However, the time-shift
-  operation will possibly multiply this coefficient by a complex factor, thus
-  resulting in a complex (as opposed to purely real) inverse FFT.
+applied to signals of even length that have a non-zero coefficient at Fs/2.
+This coefficient is required to have a purely real coefficient for the
+inverse transformed signal to be purely real. However, the time-shift
+operation will possibly multiply this coefficient by a complex factor, thus
+resulting in a complex (as opposed to purely real) inverse FFT.
 }
 \examples{
 t <- seq(0.1, 1, 0.1)
 y <- sin(2*pi*t)
-fft_shifted <- semg.simulatr:::time_shift_fft(
+fft_shifted <- semgsim:::time_shift_fft(
     fft_vals = fft(y) / length(y),
-    sampling = semg.simulatr:::create_sampling(Fs = 10, NFFT = 10),
+    sampling = semgsim:::create_sampling(Fs = 10, NFFT = 10),
     time_shift = 0.2)
 dev.new()
 plot(t,y)

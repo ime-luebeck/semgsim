@@ -8,7 +8,7 @@ IAP_Rosenfalck(z, A = 96 * 0.001, B = -90 * 0.001)
 }
 \arguments{
 \item{z}{The spatial variable. Can be a scalar or a vector. Should be in
-\code{mm} when employing the default parameters for \code{A} and \code{B}.}
+\code{m}.}
 
 \item{A}{Model parameter. Must be a scalar value in [V/mm^3]. Default value
 is 96 mv/mm^3.}
@@ -17,17 +17,17 @@ is 96 mv/mm^3.}
 is -90mV.}
 }
 \value{
-A numerical vector containing the value(s) of Rosenfalcks function at
-  position(s) z.
+A numerical vector containing the value(s) of Rosenfalcks function
+(in [V]) at position(s) z [m]
 }
 \description{
 An implementation of a variant of Rosenfalck's model of the Intracellular
 Action Potential (IAP) wave shape.  The model is simply
 }
 \details{
-Vm(z[mm]) = Az^3 exp(-z) + B, if z > 0 and
-   Vm(z[mm]) = B, if z <= 0.
+Vm(z[m]) = Az^3 exp(-z) + B, if z > 0 and
+Vm(z[m]) = B, if z <= 0.
 
 Note that the front of the IAP is towards z = 0, whereas the tail of the wave
-is around z = 15. The wave is running in negative z direction.
+is around z = 0,015m. The wave is running in negative z direction.
 }

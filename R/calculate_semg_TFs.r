@@ -18,6 +18,8 @@ calculate_TF_Far_Mer_MU_wrapper <- function(x, p, ...) {
 #' potentially differing conduction velocities of the MUs will be taken into
 #' account here, s.t. they do neither need to be taken care of in the
 #' specification of .freqs, nor later on in the processing stage.
+#' @note  The config file may "link" the current function to 
+#'   `calc_MU_electrode_time_TFs()` which is called from [calculate_semg_TFs()]. 
 #'
 #' @param MUs A data.frame containing a column 'MU.obj' containing MU objects
 #'   and index columns 'MU' and 'muscle'.

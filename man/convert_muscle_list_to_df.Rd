@@ -11,8 +11,8 @@ convert_muscle_list_to_df(muscles)
 }
 \value{
 A data.frame containing a column 'muscle' giving the indices of the
-  different muscles and a column 'muscle.obj' containing the corresponding
-  muscle objects.
+different muscles and a column 'muscle.obj' containing the corresponding
+muscle objects.
 }
 \description{
 Convert data given in the config file to a data.frame.

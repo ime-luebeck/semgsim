@@ -31,8 +31,7 @@ simulate_MUs = function(data, sampling, num_cores) {
       excitation = data$excitation,
       MU_rate_function = data$MU_rate_function,
       firing_response_fftvals = data$firing_response_fftvals,
-      MoreArgs = list(sampling = sampling, 
-                      p = p),
+      MoreArgs = list(sampling = sampling, p = p),
       SIMPLIFY = FALSE,
       future.seed = TRUE)
     
@@ -51,8 +50,7 @@ simulate_MUs = function(data, sampling, num_cores) {
       excitation = data$excitation,
       MU_rate_function = data$MU_rate_function,
       firing_response_fftvals = data$firing_response_fftvals,
-      MoreArgs = list(sampling = sampling, 
-                      p = p),
+      MoreArgs = list(sampling = sampling, p = p),
       SIMPLIFY = FALSE)
   } 
   
@@ -127,7 +125,6 @@ simulate_sample <- function(MUs, sim_state, load_vals, MUs_rate_functions,
                                     SIMPLIFY = FALSE))
       
     } else {
-        
         data$sim_state <- with(data,
                              mapply(sample_MU_contribs,
                                     MU_obj = MU.obj,
@@ -164,6 +161,45 @@ setup_sim_cluster <- function(num_cores) {
     cl
 }
 
+
+#' Wrapper calling [sample_MU_contribs()] across time axis.
+#'
+#' @param MU_obj A motor unit object containing information on force twitch
+#'   characteristics.
+#' @param sim_state A list containing elements `time_since_last_firing`,
+#'   `Z_score`, `contribs` and `future_contribs`. Describes the current state
+#'   of the simulation of this MU, i.e., summarizes the simulation history.
+#' @param force Vector of time dependent targeted muscle force values.
+#' @param excitation Vector of time dependent muscle activation.
+#' @param rate_function The rate coding function of this MU.
+#' @param firing_response_fftvals A list of num_electrodes vectors containing
+#'   firing response fft values. The index of each vector indicates the
+#'   corresponding electrode ID.
+#' @param sampling An object providing information on the sampling parameters
+#'   chosen. Usually constructed by the function create_sampling.
+#' @return A list containing the updated `sim_state` of this MU and the 
+#'   generated time dependent `emg` and `force` values.
+#'
+chunk_MU_contribs <- function(MU_obj, sim_state, force, excitation, rate_function,
+                              firing_response_fftvals, sampling) {
+  emgOut = matrix(nrow=length(force), ncol=length(sim_state$future_contribs$emg))   # [time x electrodes]
+  forceOut = rep(0, length(force)) 
+  for (t_idx in seq_along(force)) {
+    sim_state <- sample_MU_contribs(MU_obj,
+                                    sim_state,
+                                    force[t_idx],
+                                    excitation[t_idx],
+                                    rate_function,
+                                    firing_response_fftvals,
+                                    sampling)
+    emgOut[t_idx,] = unlist(sim_state$contribs$emg)
+    forceOut[t_idx] = sim_state$contribs$force
+  }
+  return(list(sim_state=sim_state, emg=emgOut, force=forceOut))    
+}
+
+
+
 #' Calculate the EMG and force contributions of a MU at the next sample.
 #'
 #' Take the previous simulation history into account; determine whether the MU
@@ -182,8 +218,8 @@ setup_sim_cluster <- function(num_cores) {
 #' @param sim_state A list containing elements `time_since_last_firing`,
 #'   `Z_score`, `contribs` and `future_contribs`. Describes the current state
 #'   of the simulation of this MU, i.e., summarizes the simulation history.
-#' @param load_val Current value of the muscle load function; describes muscle
-#'   activation.
+#' @param force Current value of targeted muscle force.
+#' @param excitation Current value of muscle activation.
 #' @param rate_function The rate coding function of this MU.
 #' @param firing_response_fftvals A list of num_electrodes vectors containing
 #'   firing response fft values. The index of each vector indicates the
@@ -194,7 +230,6 @@ setup_sim_cluster <- function(num_cores) {
 #'
 sample_MU_contribs <- function(MU_obj, sim_state, force, excitation, rate_function,
                               firing_response_fftvals, sampling) {
-
     ## -- Calculate current EMG and force contributions from past firing events
     for (electrode in seq_along(firing_response_fftvals)) {
         sim_state$contribs$emg[[electrode]] <-

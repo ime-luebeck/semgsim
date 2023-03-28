@@ -14,15 +14,15 @@ firing rate as a function of muscle activation for each MU.}
 }
 \value{
 A list of functions that gives the muscle input as a function of the desired
-  relative output force for each muscle.
+relative output force for each muscle.
 }
 \description{
-Calculate a nonlinear input transformation for each muscle that makes the 
+Calculate a nonlinear input transformation for each muscle that makes the
 muscle generated the desired relative output force.
 }
 \details{
 Depending on the firing rate, MU pool, and twitch force model, a nonlinear
 transformation of the muscle activation input is calculated, such that the
-generated relative output muscle force matches the input activation signal in 
+generated relative output muscle force matches the input activation signal in
 the mean over time.
 }

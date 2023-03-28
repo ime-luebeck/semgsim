@@ -16,7 +16,7 @@ rotate counter-clockwise in left-handed coordinate systems.}
 }
 \value{
 A three-component vector that contains the rotated x, or a matrix
-  containing the rotated columns of x.
+containing the rotated columns of x.
 }
 \description{
 Rotates a three-dimensional vector by the three angles specified around the
@@ -28,6 +28,6 @@ order x-y-z.
 }
 \note{
 Rotation is not as easily invertible as might seem apparent:
-  \code{rotate3D_lh(rotate3D_lh(vec, angles), -angles) != vec}
-  at least if there is more than one non-zero component in angles.
+\code{rotate3D_lh(rotate3D_lh(vec, angles), -angles) != vec}
+at least if there is more than one non-zero component in angles.
 }

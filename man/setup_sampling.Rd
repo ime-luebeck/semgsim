@@ -29,7 +29,7 @@ domain. This is achieved by adjusting NFFT accordingly.}
 }
 \value{
 A "sampling" object with members "Fs", "NFFT", "fft_freqs" and
-  "freqs_to_calc". All frequencies are in Hz.
+"freqs_to_calc". All frequencies are in Hz.
 }
 \description{
 Determine the frequencies at which the transfer functions are to be sampled.
@@ -43,12 +43,12 @@ defined.
 }
 \note{
 This function will always choose an odd NFFT since even NFFTs lead to
-  spectra that - when inverse transformed - yield non-zero imaginary parts in
-  the resulting time signal. This is due to the presence of the single
-  frequency coefficient at Fs/2. This coefficient is required to be purely
-  real for purely real time domain signals. This can not be guaranteed,
-  however, when the coefficient stems from the evaluation of analytical
-  expressions for the fourier transform, as it is the case here. By choosing
-  NFFT to be odd, we circumvent this problem as then the frequency bin at
-  Fs/2 is simply not present.
+spectra that - when inverse transformed - yield non-zero imaginary parts in
+the resulting time signal. This is due to the presence of the single
+frequency coefficient at Fs/2. This coefficient is required to be purely
+real for purely real time domain signals. This can not be guaranteed,
+however, when the coefficient stems from the evaluation of analytical
+expressions for the fourier transform, as it is the case here. By choosing
+NFFT to be odd, we circumvent this problem as then the frequency bin at
+Fs/2 is simply not present.
 }

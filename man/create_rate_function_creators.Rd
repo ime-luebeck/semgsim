@@ -12,8 +12,8 @@ coding shall be set up.}
 }
 \value{
 A data frame containing for each muscle a function that takes the
-  recruitment threshold of a MU in that muscle and returns a function giving
-  the firing rate of that MU in dependence of the current muscle work load.
+recruitment threshold of a MU in that muscle and returns a function giving
+the firing rate of that MU in dependence of the current muscle work load.
 }
 \description{
 This wraps \link{create_rate_function_creator} by applying it to a data frame

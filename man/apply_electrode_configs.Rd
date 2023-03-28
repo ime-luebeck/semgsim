@@ -18,10 +18,10 @@ calculating the combined signal.}
 }
 \value{
 A \code{data.frame} containing the contributions of the different
-  muscles to the signals obtained using the different electrode
-  configurations. These are still specified via the categorical variable
-  \code{electrode} (instead of using "electrode_config", or something
-  similar), in order to allow for easy usage of the same analysis functions.
+muscles to the signals obtained using the different electrode
+configurations. These are still specified via the categorical variable
+\code{electrode} (instead of using "electrode_config", or something
+similar), in order to allow for easy usage of the same analysis functions.
 }
 \description{
 Calculate combinations of different, monopolar electrode signals.
