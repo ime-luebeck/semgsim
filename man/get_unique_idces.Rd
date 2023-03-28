@@ -10,5 +10,5 @@ get_unique_idces(vec)
 Returns the indices of the first occurences of unique elements in a vector.
 }
 \note{
-This is _highly_ optimizable.
+This is \emph{highly} optimizable.
 }

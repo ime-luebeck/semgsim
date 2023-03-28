@@ -284,7 +284,7 @@ calc_affine_param <- function(min_val, max_val, ratio) {
 #' 
 #' Returned objects have one very important property: $transform, which
 #' transforms coordinates relative to the MU base region (a (0,1)x(0,1) square)
-#' into coordinates relative to the muscle's base region (also a [0,1]x[0,1]
+#' into coordinates relative to the muscle's base region (also a \[0,1\]x\[0,1\]
 #' square). It is a function that takes 2D vectors with values between 0 and 1
 #' in both dimensions. The same is true for its return values.
 #'
@@ -437,7 +437,7 @@ distribute_MUs_in_muscle <- function(muscle, MUs) {
 #' @return A list of MU objects, containing the elements of \code{MUs} but with
 #'   additional properties:
 #' \itemize{
-#'  \item{"$pos"}{The relative 2-D position (i.e. from [0,1] x [0,1]) of the MUs
+#'  \item{"$pos"}{The relative 2-D position (i.e. from \[0,1\] x \[0,1\]) of the MUs
 #'                center on the muscle cross section.}
 #'  \item{"$length_x"}{The relative size of the MU's surrounding rectangle box in
 #'                   x direction on the muscle cross section. Value between 0

@@ -25,7 +25,7 @@ compute the inverse FFT.
 }
 \note{
 Requires the underlying signal to be purely real and thus the FFT to be
-  hermitian.
+hermitian.
 }
 \examples{
 set.seed(1)

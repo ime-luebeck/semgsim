@@ -20,7 +20,7 @@ transform of psi, given a vector of ordinary input frequencies.}
 }
 \value{
 A complex vector that stores the FFT values of the firing response
-  of MU at electrode.
+of MU at electrode.
 }
 \description{
 Take information on the transfer function MU-electrode and information on
@@ -30,13 +30,13 @@ firing response of the given MU at the given electrode.
 \details{
 This does not involve calculating an FFT! Actually, it is just
 \itemize{
- \item{1.}{Evaluate the Fourier transform of the excitatory input signal
-         (given in analytical form) at the same frequencies at which the
-         MU-electrode TF has been computed.}
- \item{2.}{Multiply the complex conjugates of these values with the
-           corresponding TF values.}
- \item{3.}{Obtain the second half of the FFT by mirroring the result,
-           exploiting the hermitianness of the FFT of a real signal (which
-           we expect the resulting firing response to be).}
+\item{1.}{Evaluate the Fourier transform of the excitatory input signal
+(given in analytical form) at the same frequencies at which the
+MU-electrode TF has been computed.}
+\item{2.}{Multiply the complex conjugates of these values with the
+corresponding TF values.}
+\item{3.}{Obtain the second half of the FFT by mirroring the result,
+exploiting the hermitianness of the FFT of a real signal (which
+we expect the resulting firing response to be).}
 }
 }

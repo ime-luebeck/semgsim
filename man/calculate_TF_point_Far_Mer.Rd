@@ -4,7 +4,7 @@
 \alias{calculate_TF_point_Far_Mer}
 \title{Evaluate a muscle fiber - electrode TF at a single angular (!) frequency}
 \usage{
-calculate_TF_point_Far_Mer(freq, electrode, fiber, vol_conductor, Bfun)
+calculate_TF_point_Far_Mer(ang_freq, electrode, fiber, vol_conductor, Bfun)
 }
 \description{
 Note that this implementation assumes an even, real electrode transfer

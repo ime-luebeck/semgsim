@@ -9,6 +9,7 @@ calc_MU_firing_responses_fftvals(
   MUs,
   TFs_MU_input_to_surf_potential,
   psi_trafo,
+  num_cores = 1,
   sampling
 )
 }
@@ -23,13 +24,17 @@ column 'TF', represented as vectors of complex values.}
 \item{psi_trafo}{A function returning the values of the unitary Fourier
 transform of psi, given a vector of ordinary input frequencies.}
 
+\item{num_cores}{The number of cores that shall be used for computations. If
+equal to one (default), calculations are executed sequentially as usual.
+Otherwise, the parallel package is used for multi-process computations.}
+
 \item{sampling}{A sampling object as created by \link{setup_sampling}.}
 }
 \value{
 A data.frame containing index columns 'muscle', 'MU' and 'electrode'
-  as well as a data column 'firing_response_fftvals' that contains vectors
-  that store the FFT values of the firing response of the particular MU at
-  the particular electrode.
+as well as a data column 'firing_response_fftvals' that contains vectors
+that store the FFT values of the firing response of the particular MU at
+the particular electrode.
 }
 \description{
 This is just a wrapper that calls \link{calc_MU_firing_response_fftvals}

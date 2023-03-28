@@ -30,7 +30,7 @@ install("semgsim")
 A very simple integration test can then be performed like this:
 ```{r eval=FALSE}
 library(semgsim)
-results <- simulate_muscle("semgsim/config/integration.r", deterministic=TRUE, num_cores=3)
+results <- simulate_muscle("config/integration.r", deterministic=TRUE, num_cores=3)
 ```
 That runs a simple demo simulation of a muscle with just three motor units. The call to simulate_muscle should take several minutes up to an hour to complete, but should fail early if something does not work.
 
@@ -48,7 +48,7 @@ The package also implements various plotting functions to analyze the results of
 In the following, we will assume that the "abdominals.r" config has been run before, like this:
 ```{r eval=FALSE}
 library(semgsim)
-results <- simulate_muscle("config/abdominals.r", deterministic=TRUE, num_cores=3, out_file = "simout/abdominals.RDS")
+results <- simulate_muscle("config/abdominals.r", deterministic=TRUE, num_cores=3, out_file = "abdominals.rds")
 ```
 ```{r echo=FALSE}
 library(semgsim)
@@ -57,7 +57,7 @@ set_mode("interactive", FALSE)  # required to have plots show up in RMD
 
 First, load the simulation result. Notice that the simulated rectus abdominis superior consists of six individual muscles (the six "bellies", three left and three right) and we have a right and a left transversus muscle. Therefore, we have a total of eight muscles in this simulation.
 ```{r}
-results <- readRDS("simout/abdominals.RDS")
+results <- readRDS("abdominals.rds")
 ```
 
 Before we look at plots, let us look at a very basic numerical summary of two of the simulated muscles:
@@ -121,6 +121,19 @@ plot_surface_potentials(results$surface_potentials, analysis="density", electrod
 ```
 
 ### Data export
+The simulation results is a list that - among others - contains the following elements:\
+`Fs`: &nbsp;sampling frequency [Hz]\
+`time_limits`: &nbsp;range of time axis [s]\
+`t`: &nbsp;time axis with `1/Fs` resolution [s] spanning time_limits\
+`muscles`: &nbsp; definition of muscles (one muscle per row) with additional column that provides the muscle index\
+`MUs`: &nbsp; definition of motor units (one motor unit per row) with additional columns indicating the muscle (index), to which each motor unit belongs to, and the individual motor unit of each muscle\ 
+`electrodes`: &nbsp; definition of electrodes (one electrode per row) with additional column that provides the electrode index\
+`force_functions`: &nbsp; list that contains as many elements as muscles to be simulated. Each element is a function that provides a value in terms of muscle force for a given point in time from the time axis `t`.\
+`MU_contribs`: &nbsp; resulting contribution of each motor unit (one motor unit per row) with additional columns indicating the muscle (index), to which each motor unit belongs to, and the individual motor unit of each muscle. The contribution of each motor unit is provided in terms of force and of surface potential registered by each emg electrode.\
+`MU_impulse_trains`: &nbsp; the action potential impulse train of each motor unit (as binary time series with temporal resolution `1/Fs`, one motor unit impulse train per row) with additional columns indicating the muscle (index), to which each motor unit belongs to, and the individual motor unit of each muscle\
+`muscle_contribs`: &nbsp; resulting muscle contribution in terms of force and electrode-registered surface potential given as molten data frames\
+`surface_potentials`: &nbsp; overall electrode-registered surface potential contributed by all muscles, given as molten data frame\
+
 The most important elements of the simulation results can be easily exported using `export_to_mat(results, "target_file.mat")` or `export_to_csv(results, "target_file.csv")`.
 
 

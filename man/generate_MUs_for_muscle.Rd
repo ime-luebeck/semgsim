@@ -11,7 +11,7 @@ generate_MUs_for_muscle(muscle)
 }
 \value{
 A list of \code{muscle$num_MUs} MU objects. Contains MU objects of
-  class either "MU_rect" or "MU_circ", as defined by \code{muscle$MU_class}.
+class either "MU_rect" or "MU_circ", as defined by \code{muscle$MU_class}.
 }
 \description{
 Assign MU properties according to muscle parameters.

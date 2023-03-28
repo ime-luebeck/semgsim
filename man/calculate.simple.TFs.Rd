@@ -22,7 +22,7 @@ the purpose of interface consistency.}
 }
 \value{
 A data.frame containing the sampled transfer functions in column
-  'TF', represented as vectors of complex values.
+'TF', represented as vectors of complex values.
 }
 \description{
 Calculate transfer functions from each motor unit (MU) to each electrode in
@@ -32,27 +32,27 @@ a simple, distance-based, normalized, instantaneous fashion.
 The 'transfer functions' from a single muscle fiber to an electrode are given
 by
 
-   tf{MF, Electrode}(kt) = (dist_min / dist(MF, Electrode))^2 * j * kt,
+tf{MF, Electrode}(kt) = (dist_min / dist(MF, Electrode))^2 * j * kt,
 
 where dist_min is a normalization term which is defined as the minimum over
 all MUs of
 
-   dist_MU = sqrt(sum(dist(MF, Electrode)^-2)),
+dist_MU = sqrt(sum(dist(MF, Electrode)^-2)),
 
 with the sum being taken over all muscle fibers in that MU. This formula
 results from assuming a point-source solution
 
-   phi(xe, ye, ze) = (dist_min / dist(MF, Electrode))^2
+phi(xe, ye, ze) = (dist_min / dist(MF, Electrode))^2
 
 and actually considering point sources with time course
 
-   i(t) = d/dz psi(-vt).
+i(t) = d/dz psi(-vt).
 
 Fourier transformation then yields the above transfer function. The TF of a
 MU now results from the summation of the TFs of all its muscle fibers,
 yielding
 
-   tf{MU, Electrode}(kt) = dist_min^2 * j * kt * sum(dist(MF, Electrode)^-2).
+tf{MU, Electrode}(kt) = dist_min^2 * j * kt * sum(dist(MF, Electrode)^-2).
 
 Note that this simple summation is only valid if we assume the same
 conduction velocity (cv) in all muscle fibers located in the same MU.

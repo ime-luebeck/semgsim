@@ -16,13 +16,13 @@ transfer function is to be evaluated.}
 }
 \value{
 A list object providing two properties: First, a property
-  '$sampled.data' containing the discrete values of the transfer function
-  from motor unit .MU to electrode .electrode obtained by evaluation at the
-  discrete angular frequencies kt. Values are _not_ normalized according to
-  .dist.min. And second, a property '$amp' that contains the sum over all
-  muscle fibers of the squared inverse of the distance from that fiber's
-  innvervation zone to the electrode position. This will be used for
-  normalization later on.
+'$sampled.data' containing the discrete values of the transfer function
+from motor unit .MU to electrode .electrode obtained by evaluation at the
+discrete angular frequencies kt. Values are \emph{not} normalized according to
+.dist.min. And second, a property '$amp' that contains the sum over all
+muscle fibers of the squared inverse of the distance from that fiber's
+innvervation zone to the electrode position. This will be used for
+normalization later on.
 }
 \description{
 Compute discrete, unnormalized values of the transfer function from the motor

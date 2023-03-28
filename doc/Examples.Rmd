@@ -1,0 +1,79 @@
+---
+title: "R Notebook on semgsim Examples"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+---
+
+This notebook gives examples of how to use semgsim.
+
+The package can be built from source and installed as follows:
+```{r, eval = FALSE, echo = TRUE}
+devtools::load_all()
+devtools::document()
+devtools::install()
+```
+
+```{r, eval = TRUE, echo = TRUE}
+library(semgsim)
+```
+
+```{r, eval = FALSE, echo = TRUE}
+# run simulation as a whole 
+model <- simulate_muscle("config/integration.r", deterministic=TRUE)
+
+# or as an alternative, create only geometry and calculate transfer functions
+model <- calculate_semg_TFs(setup_muscles("config/integration.r", deterministic = TRUE), deterministic = TRUE) 
+
+# write simulation result to file
+saveRDS(model, file="integration.rds")
+```
+
+```{r, eval = TRUE, echo = TRUE}
+# just retrieve model from file
+model <- readRDS("integration.rds")
+```
+
+```{r, echo = TRUE}
+# show results
+summarize_muscles(model)
+plot_geometry(model)
+plot_force_twitches(model$MUs, MUs_to_plot=1:3)
+plot_firing_responses(model, MUs=1:3)
+```
+
+```{r, echo = FALSE}
+# re-calculate model sample by sample (internally, and in fact, not parallel)
+model = simulate_model(model, model$force_functions, model$time_limits, parallel="sample")
+
+# ... or in chunks parallel (one chunk per motor unit) 
+model = simulate_model(model, model$force_functions, model$time_limits, num_cores=6, parallel="chunk")
+
+# get small chunk (20 samples) of input force data
+force_vals = as.data.frame(model$load_vals$force)[1:20,]
+
+# create instance for stepwise simulation
+instance <- init.simulate_model_stepwise(model, deterministic=TRUE)
+
+# run stimulation on this chunk
+instance$run(force_vals)
+
+# or do samplewise simulation using apply
+apply(force_vals, 1, instance$run)
+
+# to retrieve emg and force for all simulated samples, do this:
+instance <- init.simulate_model_stepwise(model, deterministic=TRUE)
+sapply(as.data.frame(t(force_vals)),
+       function(x) {
+         instance$run(x)
+         return(c(emg=unlist(instance$getEmg()),force=instance$getForce()))
+       })
+
+```
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+
+

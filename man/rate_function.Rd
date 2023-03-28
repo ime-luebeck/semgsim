@@ -20,11 +20,11 @@ rate coding behavior of a particular muscle.
 
 The model respects the following principles: \itemize{
 \item The 'onion-skin' phenomenon: at each point in time, earlier recruited
-  MUs maintain higher firing rates than later recruited ones.
+MUs maintain higher firing rates than later recruited ones.
 \item Firing-rate curves converge to similar (here: the same) firing rates at
-  high force levels.
+high force levels.
 \item At a given value of force, higher-threshold MUs display higher slopes
-  in their firing-rate-force curves.
+in their firing-rate-force curves.
 \item Initial firing rates of MUs increase with the recruitment threshold.
 }
 }

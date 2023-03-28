@@ -7,7 +7,7 @@
 distribute_MUs_in_muscle(muscle, MUs)
 }
 \arguments{
-\item{muscle}{A single muscle object, must have element `MU_distributor`.}
+\item{muscle}{A single muscle object, must have element \code{MU_distributor}.}
 
 \item{MUs}{A list of MU objects.}
 }
@@ -18,7 +18,7 @@ A list of modified MU objects with assigned geometrical properties.
 Distribute MUs throughout the base muscle's assigned area, taking care of
 assumed fiber densities, muscle boundaries, etc. This is a purely technical
 function; the algorithm used for MU placement must be provided externally via
-`muscle$MU_distributor`.
+\code{muscle$MU_distributor}.
 }
 \details{
 Returned objects have one very important property: $transform, which

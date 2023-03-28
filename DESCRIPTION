@@ -1,6 +1,6 @@
 Package: semgsim
 Title: Simulating surface electromyographic (sEMG) and force signals
-Version: 1.0
+Version: 1.0.5
 Authors: Eike Petersen <eike.petersen@posteo.de>
 Description: Performs a high-fidelity simulation of surface EMG and force signals. Utilizes
   a comprehensive mathematical model of motor unit pool organization, surface EMG generation,
@@ -8,7 +8,7 @@ Description: Performs a high-fidelity simulation of surface EMG and force signal
   Petersen and Rostalski (2019): "A Comprehensive Mathematical Model of Motor Unit Pool
   Organization, Surface Electromyography and Force Generation" (frontiers in Physiology).
 Depends:
-    R (>= 4.0.0)
+    R (>= 4.0.3)
 Imports:
     plyr,
     dplyr,
@@ -19,13 +19,13 @@ Imports:
     ggpubr,
     scales,
     future,
-    future.apply,
-    parallelly
+    future.apply
 Suggests:
     testthat,
     R.matlab,
     readr
 LazyData: true
 License: GPL-3
-RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
 Encoding: UTF-8

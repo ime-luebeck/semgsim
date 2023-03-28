@@ -16,7 +16,7 @@ positive ones).}
 }
 \value{
 A complex vector containing the full set of FFT values at all
-  frequencies (and in the same order as) given by sampling$fft_freqs.
+frequencies (and in the same order as) given by sampling$fft_freqs.
 }
 \description{
 The FT of a purely real function is hermitian. Exploit this to obtain a full
@@ -24,6 +24,6 @@ set of FFT values from the values at positive frequencies only (and f=0).
 }
 \note{
 Should be clear, but once again: This function produces false results
-  but **does not throw an error** if the underlying function is not purely
-  real!
+but \strong{does not throw an error} if the underlying function is not purely
+real!
 }

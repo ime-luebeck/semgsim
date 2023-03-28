@@ -25,6 +25,6 @@ instantiated value.
 This function considers the given range \code{[min, max]} to be the
 \code{n}-sigma range of a Gaussian probability distribution, with the mean
 lying in the center of the range. Samples outside of this interval
-(i.e. outside of the \code{n}-sigma range, hence e.g. less than 5\% of all
+(i.e. outside of the \code{n}-sigma range, hence e.g. less than 5\\% of all
 samples for \code{n = 2}) are rejected and resampled.
 }

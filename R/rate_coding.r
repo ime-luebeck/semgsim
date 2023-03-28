@@ -107,7 +107,7 @@ create_rate_function_creator <- function(params) {
 #' This implements an exponential model of the firing-rate-force relationship
 #' relationship, as proposed in "Relationship between firing rate and
 #' recruitment threshold of motoneurons in voluntary isometric contractions"
-#' [De Luca, Hostage] (2010). The model is
+#' \[De Luca, Hostage\] (2010). The model is
 #'
 #' fr_i(x) = Dx + (C - A exp(-x/B)) x_i + E
 #'

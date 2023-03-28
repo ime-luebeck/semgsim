@@ -19,18 +19,18 @@ Currently, only \code{overlap == 0} is implemented.}
 }
 \value{
 A list of MU objects, containing the elements of \code{MUs} but with
-  additional properties:
+additional properties:
 \itemize{
- \item{"$pos"}{The relative 2-D position (i.e. from [0,1] x [0,1]) of the MUs
-               center on the muscle cross section.}
- \item{"$length_x"}{The relative size of the MU's surrounding rectangle box in
-                  x direction on the muscle cross section. Value between 0
-                  and 1. Used to transform coordinates relative to the MU
-                  area to coordinates relative to the muscle area.}
- \item{"$length_y"}{The relative size of the MU's surrounding rectangle box in
-                  y direction on the muscle cross section. Value between 0
-                  and 1. Used to transform coordinates relative to the MU
-                  area to coordinates relative to the muscle area.}
+\item{"$pos"}{The relative 2-D position (i.e. from [0,1] x [0,1]) of the MUs
+center on the muscle cross section.}
+\item{"$length_x"}{The relative size of the MU's surrounding rectangle box in
+x direction on the muscle cross section. Value between 0
+and 1. Used to transform coordinates relative to the MU
+area to coordinates relative to the muscle area.}
+\item{"$length_y"}{The relative size of the MU's surrounding rectangle box in
+y direction on the muscle cross section. Value between 0
+and 1. Used to transform coordinates relative to the MU
+area to coordinates relative to the muscle area.}
 }
 }
 \description{
